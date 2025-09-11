@@ -394,7 +394,12 @@
     <script>
         // Initialize animations on page load
         window.onload = function() {
-            window.scrollTo(0, 0);
+            // Scroll to top only on initial page load or refresh
+            if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD) {
+                window.scrollTo(0, 0);
+            } else if (!window.performance) {
+                window.scrollTo(0, 0); // Fallback for browsers without performance API
+            }
             triggerHeaderAnimations();
             initFireworks();
             initGalleryAnimations();
@@ -416,15 +421,21 @@
             const whatsappFloat = document.querySelector('.whatsapp-float');
 
             linkButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (e) => {
+                    // Prevent default anchor behavior that might cause scroll
+                    e.preventDefault();
                     button.classList.add('clicked');
                     setTimeout(() => {
                         button.classList.remove('clicked');
+                        // Navigate to the link after animation
+                        window.location.href = button.href;
                     }, 300); // Match fadeOut animation duration
                 });
             });
 
-            whatsappFloat.addEventListener('click', () => {
+            whatsappFloat.addEventListener('click', (e) => {
+                // Prevent any default behavior
+                e.preventDefault();
                 whatsappFloat.classList.add('clicked');
                 redirectToContactWhatsApp();
                 setTimeout(() => {
@@ -596,6 +607,8 @@
 
             document.querySelectorAll('.gallery-card img').forEach(img => {
                 img.addEventListener('click', (e) => {
+                    // Prevent default behavior to avoid scroll
+                    e.preventDefault();
                     const rect = img.getBoundingClientRect();
                     const x = rect.left + rect.width / 2;
                     const y = rect.top + rect.height / 2;
