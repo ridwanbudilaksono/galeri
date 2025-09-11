@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Galeri Pusat WiFi Solo</title>
+    <link rel="preload" href="https://github.com/pusatwifisolo/wifi/blob/main/favicon.png?raw=true" as="image">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
     <link rel="icon" type="image/png" href="https://github.com/pusatwifisolo/wifi/blob/main/favicon.png?raw=true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -51,16 +53,16 @@
             opacity: 0;
         }
         header .part1.animated {
-            animation: slideInLeft 1s ease-out forwards;
+            animation: slideInLeft 0.5s ease-out forwards;
         }
         header .part2.animated {
-            animation: slideInLeft 1s ease-out 1.3s forwards;
+            animation: slideInLeft 0.5s ease-out 0.65s forwards;
         }
         header p.animated {
-            animation: slideInRight 1s ease-out 2.3s forwards;
+            animation: slideInRight 0.5s ease-out 1.15s forwards;
         }
         header .slogan.animated {
-            animation: slideInRight 1s ease-out 2.3s forwards;
+            animation: slideInRight 0.5s ease-out 1.15s forwards;
         }
         header p {
             font-size: 1.4em;
@@ -121,15 +123,21 @@
             text-align: center;
             color: #333;
         }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .links-section {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 1em 0;
         }
-        .btn {
+        .links-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 0.5em;
+        }
+        .links-container a {
+            width: 198px;
             display: inline-block;
-            padding: 12px 25px;
+            padding: 12px 0;
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
             color: white;
             text-decoration: none;
@@ -137,9 +145,22 @@
             font-weight: bold;
             transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            white-space: nowrap;
             text-align: center;
         }
-        .btn:hover {
+        .links-container .payment-btn {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        .links-container .home-btn {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .links-container .guide-btn {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .links-container a:hover {
             transform: scale(1.15);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             background: linear-gradient(45deg, #3b82f6, #1e3a8a);
@@ -233,7 +254,11 @@
             .gallery-card img { height: 150px; }
             .gallery-card h3 { font-size: 1.1em; }
             .gallery-card p { font-size: 0.8em; }
-            .btn { padding: 10px 20px; font-size: 0.9em; }
+            .links-container a {
+                width: 158.4px;
+                padding: 10px 0;
+                font-size: 0.9em;
+            }
             .whatsapp-float {
                 width: 51px;
                 height: 51px;
@@ -256,7 +281,11 @@
             .gallery-card img { height: 120px; }
             .gallery-card h3 { font-size: 0.9em; }
             .gallery-card p { font-size: 0.7em; }
-            .btn { padding: 8px 15px; font-size: 0.8em; }
+            .links-container a {
+                width: 132px;
+                padding: 8px 0;
+                font-size: 0.8em;
+            }
             .whatsapp-float {
                 width: 46px;
                 height: 46px;
@@ -283,53 +312,56 @@
     <div class="container">
         <section class="gallery">
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/ap.jpg?raw=true" alt="Access Point">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/ap.jpg?raw=true" alt="Access Point" width="350" height="200" fetchpriority="high" loading="lazy">
                 <h3>Access Point</h3>
                 <p>Perangkat modern untuk koneksi WiFi stabil.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/internetcepat.jpg?raw=true" alt="Internet Cepat">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/internetcepat.jpg?raw=true" alt="Internet Cepat" width="350" height="200" loading="lazy">
                 <h3>Internet Cepat</h3>
                 <p>Kecepatan tinggi untuk semua kebutuhan.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/instalasifo.jpg?raw=true" alt="Instalasi Fiber Optic">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/instalasifo.jpg?raw=true" alt="Instalasi Fiber Optic" width="350" height="200" loading="lazy">
                 <h3>Instalasi Fiber Optic</h3>
                 <p>Pemasangan profesional dengan teknologi terkini.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/happy.jpg?raw=true" alt="Kebahagiaan Bersama">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/happy.jpg?raw=true" alt="Kebahagiaan Bersama" width="350" height="200" loading="lazy">
                 <h3>Kebahagiaan Bersama</h3>
                 <p>Internet andal untuk keluarga bahagia.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/belajar.png?raw=true" alt="Belajar Online">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/belajar.png?raw=true" alt="Belajar Online" width="350" height="200" loading="lazy">
                 <h3>Belajar Online</h3>
                 <p>Dukung pembelajaran daring tanpa hambatan.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/stabil.png?raw=true" alt="Koneksi Stabil">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/stabil.png?raw=true" alt="Koneksi Stabil" width="350" height="200" loading="lazy">
                 <h3>Koneksi Stabil</h3>
                 <p>Nikmati internet tanpa putus-putus.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/teknologi.jpg?raw=true" alt="Teknologi Modern">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/teknologi.jpg?raw=true" alt="Teknologi Modern" width="350" height="200" loading="lazy">
                 <h3>Teknologi Modern</h3>
                 <p>Perangkat canggih untuk performa terbaik.</p>
             </div>
             <div class="gallery-card">
-                <img src="https://github.com/pusatwifisolo/galeri/blob/main/semua2.png?raw=true" alt="Internet untuk Semua">
+                <img src="https://github.com/pusatwifisolo/galeri/blob/main/semua2.png?raw=true" alt="Internet untuk Semua" width="350" height="200" loading="lazy">
                 <h3>Internet untuk Semua</h3>
                 <p>Koneksi cepat untuk setiap aktivitas.</p>
             </div>
         </section>
-        <div class="button-container">
-            <a href="https://pusatwifisolo.github.io/wifi/" class="btn">Halaman Utama</a>
-            <a href="https://pusatwifisolo.github.io/pembayaran/" class="btn">Pembayaran</a>
-        </div>
+        <section class="links-section">
+            <div class="links-container">
+                <a href="https://pusatwifisolo.github.io/pembayaran/" class="payment-btn">Pembayaran</a>
+                <a href="https://pusatwifisolo.github.io/wifi/" class="home-btn">Halaman Utama</a>
+                <a href="https://pusatwifisolo.github.io/panduan/" class="guide-btn">Panduan Layanan</a>
+            </div>
+        </section>
     </div>
-    <div class="whatsapp-float" onclick="redirectToContactWhatsApp()">
-        <img src="https://github.com/pusatwifisolo/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp">
+    <div class="whatsapp-float">
+        <img id="whatsapp-icon" src="https://github.com/pusatwifisolo/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp" width="40" height="40" loading="lazy">
     </div>
     <footer>
         <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
@@ -339,9 +371,9 @@
         window.onload = function() {
             window.scrollTo(0, 0);
             triggerHeaderAnimations();
-            document.querySelector('.whatsapp-float').classList.add('show');
             initFireworks();
             initGalleryAnimations();
+            initWhatsAppFloatAnimation();
         };
 
         // Function to trigger header animations
@@ -357,6 +389,32 @@
             const message = encodeURIComponent(`Saya ingin informasi lebih lanjut tentang Pasang WiFi di Pusat WiFi Solo`);
             const whatsappUrl = `https://wa.me/6285777773541?text=${message}`;
             window.open(whatsappUrl, '_blank');
+        }
+
+        // WhatsApp float animation
+        function initWhatsAppFloatAnimation() {
+            const whatsappFloat = document.querySelector('.whatsapp-float');
+            const whatsappIcon = document.getElementById('whatsapp-icon');
+
+            // Function to show WhatsApp float animation
+            function showWhatsAppFloat() {
+                whatsappFloat.classList.add('show');
+            }
+
+            // Check if image is already loaded
+            if (whatsappIcon.complete) {
+                showWhatsAppFloat();
+            } else {
+                // Add load and error event listeners
+                whatsappIcon.addEventListener('load', showWhatsAppFloat);
+                whatsappIcon.addEventListener('error', showWhatsAppFloat); // Handle failed loads
+            }
+
+            // Fallback timeout to ensure animation triggers
+            setTimeout(showWhatsAppFloat, 5000); // 5-second fallback
+
+            // Add click event listener after ensuring element exists
+            whatsappFloat.addEventListener('click', redirectToContactWhatsApp);
         }
 
         // Gallery card and image animation on scroll
@@ -395,19 +453,24 @@
             function checkAllImagesLoaded() {
                 imagesLoaded++;
                 if (imagesLoaded === totalImages) {
-                    // Start observing cards only after all images are loaded
                     galleryCards.forEach(card => observer.observe(card));
                 }
             }
 
+            // Fallback timeout to ensure animations start
+            setTimeout(() => {
+                if (imagesLoaded < totalImages) {
+                    galleryCards.forEach(card => observer.observe(card));
+                }
+            }, 5000);
+
             // Add load and error event listeners to each image
             images.forEach(img => {
                 if (img.complete) {
-                    // If image is already cached/loaded
                     checkAllImagesLoaded();
                 } else {
                     img.addEventListener('load', checkAllImagesLoaded);
-                    img.addEventListener('error', checkAllImagesLoaded); // Handle failed loads
+                    img.addEventListener('error', checkAllImagesLoaded);
                 }
             });
         }
@@ -444,8 +507,8 @@
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
-                    this.speedY += 0.1; // Gravity effect
-                    this.size *= 0.95; // Shrink over time
+                    this.speedY += 0.1;
+                    this.size *= 0.95;
                     this.life--;
                 }
 
@@ -479,7 +542,7 @@
                     requestAnimationFrame(animateFireworks);
                 } else {
                     isAnimating = false;
-                    ctx.globalAlpha = 1; // Reset alpha
+                    ctx.globalAlpha = 1;
                 }
             }
 
@@ -495,4 +558,3 @@
     </script>
 </body>
 </html>
-
