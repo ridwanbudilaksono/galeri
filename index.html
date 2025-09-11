@@ -135,7 +135,7 @@
             gap: 0.5em;
         }
         .links-container a {
-            width: 198px;
+            width: 194px;
             display: inline-block;
             padding: 12px 0;
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
@@ -143,27 +143,35 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             white-space: nowrap;
             text-align: center;
+            outline: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            animation: bounceIn 0.6s ease-out forwards;
+        }
+        .links-container a:hover {
+            animation: pulse 0.8s infinite ease-in-out;
+        }
+        .links-container a.clicked {
+            animation: fadeOut 0.3s ease-out forwards;
         }
         .links-container .payment-btn {
             margin-right: auto;
             margin-left: 0;
+            animation-delay: 0.1s;
         }
         .links-container .home-btn {
             margin-left: auto;
             margin-right: auto;
+            animation-delay: 0.2s;
         }
         .links-container .guide-btn {
             margin-left: auto;
             margin-right: 0;
-        }
-        .links-container a:hover {
-            transform: scale(1.15);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            animation-delay: 0.3s;
         }
         .whatsapp-float {
             position: fixed;
@@ -178,9 +186,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
             cursor: pointer;
             opacity: 0;
+            outline: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         .whatsapp-float img {
             width: 40px;
@@ -188,11 +199,13 @@
             object-fit: contain;
         }
         .whatsapp-float.show {
-            animation: floatIn 1s ease-out forwards;
+            animation: bounceIn 0.6s ease-out forwards;
         }
         .whatsapp-float:hover {
-            transform: scale(1.15);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            animation: pulse 0.8s infinite ease-in-out;
+        }
+        .whatsapp-float.clicked {
+            animation: fadeOut 0.3s ease-out forwards;
         }
         footer {
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
@@ -224,10 +237,6 @@
             from { opacity: 0; transform: translateX(100px); }
             to { opacity: 1; transform: translateX(0); }
         }
-        @keyframes floatIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(80px); }
             to { opacity: 1; transform: translateY(0); }
@@ -235,6 +244,20 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         @keyframes subtlePulse {
             0% { opacity: 0.4; }
@@ -255,7 +278,7 @@
             .gallery-card h3 { font-size: 1.1em; }
             .gallery-card p { font-size: 0.8em; }
             .links-container a {
-                width: 158.4px;
+                width: 155px;
                 padding: 10px 0;
                 font-size: 0.9em;
             }
@@ -282,7 +305,7 @@
             .gallery-card h3 { font-size: 0.9em; }
             .gallery-card p { font-size: 0.7em; }
             .links-container a {
-                width: 132px;
+                width: 129px;
                 padding: 8px 0;
                 font-size: 0.8em;
             }
@@ -374,6 +397,7 @@
             initFireworks();
             initGalleryAnimations();
             initWhatsAppFloatAnimation();
+            addButtonClickAnimation();
         };
 
         // Function to trigger header animations
@@ -384,11 +408,26 @@
             document.querySelector('.slogan').classList.add('animated');
         }
 
+        // Add click animation to buttons and WhatsApp float
+        function addButtonClickAnimation() {
+            const buttons = document.querySelectorAll('.links-container a, .whatsapp-float');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.add('clicked');
+                    setTimeout(() => {
+                        button.classList.remove('clicked');
+                    }, 300); // Match fadeOut animation duration
+                });
+            });
+        }
+
         // Redirect to WhatsApp for contact
         function redirectToContactWhatsApp() {
             const message = encodeURIComponent(`Saya ingin informasi lebih lanjut tentang Pasang WiFi di Pusat WiFi Solo`);
             const whatsappUrl = `https://wa.me/6285777773541?text=${message}`;
-            window.open(whatsappUrl, '_blank');
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 300); // Delay to allow fade-out animation
         }
 
         // WhatsApp float animation
@@ -407,14 +446,11 @@
             } else {
                 // Add load and error event listeners
                 whatsappIcon.addEventListener('load', showWhatsAppFloat);
-                whatsappIcon.addEventListener('error', showWhatsAppFloat); // Handle failed loads
+                whatsappIcon.addEventListener('error', showWhatsAppFloat);
             }
 
             // Fallback timeout to ensure animation triggers
-            setTimeout(showWhatsAppFloat, 5000); // 5-second fallback
-
-            // Add click event listener after ensuring element exists
-            whatsappFloat.addEventListener('click', redirectToContactWhatsApp);
+            setTimeout(showWhatsAppFloat, 5000);
         }
 
         // Gallery card and image animation on scroll
