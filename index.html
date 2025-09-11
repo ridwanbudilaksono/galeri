@@ -201,11 +201,8 @@
         .whatsapp-float.show {
             animation: bounceIn 0.6s ease-out forwards;
         }
-        .whatsapp-float:hover {
-            animation: pulse 0.8s infinite ease-in-out;
-        }
         .whatsapp-float.clicked {
-            animation: fadeOut 0.3s ease-out forwards;
+            animation: jumpOut 0.3s ease-in-out forwards;
         }
         footer {
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
@@ -256,8 +253,13 @@
         }
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.07); }
             100% { transform: scale(1); }
+        }
+        @keyframes jumpOut {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.07); }
+            100% { opacity: 1; transform: scale(1); }
         }
         @keyframes subtlePulse {
             0% { opacity: 0.4; }
@@ -410,14 +412,24 @@
 
         // Add click animation to buttons and WhatsApp float
         function addButtonClickAnimation() {
-            const buttons = document.querySelectorAll('.links-container a, .whatsapp-float');
-            buttons.forEach(button => {
+            const linkButtons = document.querySelectorAll('.links-container a');
+            const whatsappFloat = document.querySelector('.whatsapp-float');
+
+            linkButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     button.classList.add('clicked');
                     setTimeout(() => {
                         button.classList.remove('clicked');
                     }, 300); // Match fadeOut animation duration
                 });
+            });
+
+            whatsappFloat.addEventListener('click', () => {
+                whatsappFloat.classList.add('clicked');
+                redirectToContactWhatsApp();
+                setTimeout(() => {
+                    whatsappFloat.classList.remove('clicked');
+                }, 300); // Match jumpOut animation duration
             });
         }
 
@@ -427,7 +439,7 @@
             const whatsappUrl = `https://wa.me/6285777773541?text=${message}`;
             setTimeout(() => {
                 window.open(whatsappUrl, '_blank');
-            }, 300); // Delay to allow fade-out animation
+            }, 300); // Delay to allow jumpOut animation
         }
 
         // WhatsApp float animation
